@@ -1063,20 +1063,82 @@ If there was some error saving the current state of the <code>WishTransaction</c
 <div class="paragraph">
 <p>The Add Wish feature is executed through an <code>AddCommand</code> by the user, which after parsing,
 is facilitated mainly by the <code>ModelManager</code> which implements <code>Model</code>.
-It also affects <code>versionedWishBook</code> and <code>versionedWishTransaction</code> by adding the target wish to both of their respective data structures.
-After adding a <code>Wish</code>, the <code>filteredSortedWishes</code> is also updated to reflect the latest WishBook.
+It also affects <code>versionedWishBook</code> and <code>versionedWishTransaction</code> by adding the
+resultant wish to both of their respective data structures.
+After adding a <code>Wish</code>, the <code>filteredSortedWishes</code> is also updated to reflect the
+latest version of WishBook.
 The UI is also prompted to refresh through a <code>WishBookChangedEvent</code>.</p>
+</div>
+<div class="paragraph">
+<p><code>AddCommandParser</code> parses the user&#8217;s input for parameters using prefixes,
+and checks them against their respective regular expressions (regex), specified
+in their respective classes.</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>The following prefix/parameter pairs are <strong>compulsory</strong>, where a user&#8217;s input will be
+rejected if they are not provided:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>n/</code>: Name</p>
+</li>
+<li>
+<p><code>p/</code>: Price</p>
+</li>
+<li>
+<p>One of the following Date parameters:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>d/</code>: Exact expiry date</p>
+</li>
+<li>
+<p><code>a/</code>: duration (or lifetime) from time when command is entered</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following prefix/parameter pairs are <strong>optional</strong>, where a user&#8217;s input will
+be successful even if they are not provided:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>t/</code>: tags (more than one allowed)</p>
+</li>
+<li>
+<p><code>u/</code>: product&#8217;s URL (product page)</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p>Given below is an example usage scenario and how an AddCommand is carried out.</p>
 </div>
 <div class="paragraph">
-<p>Step 1. The user types in a valid <code>AddCommand</code>, for example, <code>add n/1 TB Toshiba SSD p/158 d/200d</code>, and the current date is 2nd October 2017 (2/10/2017).</p>
+<p>Step 1. The user types in a valid <code>AddCommand</code>, for example,
+<code>add n/1 TB Toshiba SSD p/158 d/200d</code>, and the current date is 2nd October 2017 (2/10/2017).</p>
 </div>
-<div class="ulist NOTE">
-<ul class="NOTE">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
 <li>
-<p>The Date format should be <code>dd/mm/yyyy</code> where the specified date should be a valid date in the future.</p>
+<p>The Date should be in the format of <code>dd/mm/yyyy</code>, <code>dd</code> being days,
+<code>mm</code> being months, <code>yyyy</code> being the year,
+and the specified date should also be a valid date in the future.</p>
 </li>
 <li>
 <p>If the date provided after the date prefix <code>d/</code> is of valid duration length instead of <code>dd/mm/yyyy</code> format, the format should be <code>&lt;years&gt;y&lt;months&gt;m&lt;days&gt;d</code>.</p>
@@ -1085,6 +1147,10 @@ The UI is also prompted to refresh through a <code>WishBookChangedEvent</code>.<
 <p>If an invalid date is provided, a warning will be displayed to prompt the user to enter a valid date.</p>
 </li>
 </ul>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>The <code>AddCommandParser</code> will employ <code>ParserUtil</code> to parse the attributes specified after each prefix. The parsing of the
@@ -1120,9 +1186,6 @@ Internally, <code>ParserUtil#parseDate()</code> converts the input date specifie
 </li>
 <li>
 <p>Tags: <code>none</code></p>
-</li>
-<li>
-<p>Transactions: <code>empty LinkedList</code></p>
 </li>
 </ul>
 </div>
@@ -3567,4 +3630,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-09 01:48:21 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-09 06:17:58 UTC</div></div></div></body></html>
